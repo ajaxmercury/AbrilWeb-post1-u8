@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Formulario de Categoría</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; }
+        input[type="text"], textarea { width: 100%; padding: 8px; box-sizing: border-box; }
+        .error { color: red; font-size: 0.9em; }
+        .btn { padding: 8px 15px; text-decoration: none; border-radius: 4px; color: white; display: inline-block; border: none; cursor: pointer; }
+        .btn-primary { background-color: #007bff; }
+        .btn-secondary { background-color: #6c757d; }
+    </style>
+</head>
+<body>
+    <h1 th:text="${categoria.id == null ? 'Nueva Categoría' : 'Editar Categoría'}">Formulario</h1>
+    
+    <form th:action="@{/categorias/guardar}" th:object="${categoria}" method="post" style="max-width: 500px;">
+        <input type="hidden" th:field="*{id}" />
+        
+        <div class="form-group">
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" th:field="*{nombre}" />
+            <div th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}" class="error"></div>
+        </div>
+
+        <div class="form-group">
+            <label for="descripcion">Descripción:</label>
+            <textarea id="descripcion" th:field="*{descripcion}" rows="4"></textarea>
+            <div th:if="${#fields.hasErrors('descripcion')}" th:errors="*{descripcion}" class="error"></div>
+        </div>
+
+        <div>
+            <button type="submit" class="btn btn-primary">Guardar</button>
+            <a th:href="@{/categorias}" class="btn btn-secondary">Cancelar</a>
+        </div>
+    </form>
+</body>
+</html>

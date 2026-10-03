@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Categorías</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        table { border-collapse: collapse; width: 100%; margin-top: 20px; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+        .btn { padding: 5px 10px; text-decoration: none; border-radius: 4px; color: white; display: inline-block; }
+        .btn-primary { background-color: #007bff; }
+        .btn-danger { background-color: #dc3545; }
+        .btn-warning { background-color: #ffc107; color: black; }
+        .search-bar { margin-bottom: 20px; }
+        .actions { display: flex; gap: 5px; }
+    </style>
+</head>
+<body>
+    <h1>Catálogo de Categorías</h1>
+    
+    <div class="search-bar">
+        <form th:action="@{/categorias}" method="get">
+            <input type="text" name="q" th:value="${q}" placeholder="Buscar categoría...">
+            <button type="submit" class="btn btn-primary">Buscar</button>
+            <a th:href="@{/categorias}" class="btn btn-warning">Limpiar</a>
+        </form>
+    </div>
+
+    <a th:href="@{/categorias/nuevo}" class="btn btn-primary">Nueva Categoría</a>
+    <a th:href="@{/productos}" class="btn btn-primary" style="margin-left: 10px;">Ver Productos</a>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Descripción</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="cat : ${categorias}">
+                <td th:text="${cat.id}">1</td>
+                <td th:text="${cat.nombre}">Nombre</td>
+                <td th:text="${cat.descripcion}">Descripción</td>
+                <td class="actions">
+                    <a th:href="@{/categorias/editar/{id}(id=${cat.id})}" class="btn btn-warning">Editar</a>
+                    <a th:href="@{/categorias/eliminar/{id}(id=${cat.id})}" class="btn btn-danger">Eliminar</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
