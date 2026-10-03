@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body { background-color: #1e1e1e; color: #d4d4d4; font-family: Consolas, monospace; padding: 20px; font-size: 14px; }
+    </style>
+</head>
+<body>
+    <pre><code>mysql> DESCRIBE productos;
++--------------+---------------+------+-----+---------+----------------+
+| Field        | Type          | Null | Key | Default | Extra          |
++--------------+---------------+------+-----+---------+----------------+
+| id           | bigint        | NO   | PRI | NULL    | auto_increment |
+| nombre       | varchar(120)  | NO   |     | NULL    |                |
+| precio       | decimal(10,2) | NO   |     | NULL    |                |
+| stock        | int           | NO   |     | NULL    |                |
+| categoria_id | bigint        | NO   | MUL | NULL    |                |
++--------------+---------------+------+-----+---------+----------------+
+5 rows in set (0.00 sec)</code></pre>
+</body>
+</html>

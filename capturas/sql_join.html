@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body { background-color: #1e1e1e; color: #d4d4d4; font-family: Consolas, monospace; padding: 20px; font-size: 14px; }
+    </style>
+</head>
+<body>
+    <pre><code>Hibernate: 
+    select
+        p1_0.id,
+        c1_0.id,
+        c1_0.descripcion,
+        c1_0.nombre,
+        p1_0.nombre,
+        p1_0.precio,
+        p1_0.stock 
+    from
+        productos p1_0 
+    join
+        categorias c1_0 
+            on c1_0.id=p1_0.categoria_id 
+    where
+        c1_0.id=? 
+        and p1_0.precio>? 
+    order by
+        p1_0.precio desc</code></pre>
+</body>
+</html>
