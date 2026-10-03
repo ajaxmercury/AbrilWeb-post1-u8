@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Productos</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        table { border-collapse: collapse; width: 100%; margin-top: 20px; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+        .btn { padding: 5px 10px; text-decoration: none; border-radius: 4px; color: white; display: inline-block; border: none; cursor: pointer; }
+        .btn-primary { background-color: #007bff; }
+        .btn-danger { background-color: #dc3545; }
+        .btn-warning { background-color: #ffc107; color: black; }
+        .filter-bar { margin-bottom: 20px; padding: 10px; background-color: #f8f9fa; border: 1px solid #ddd; }
+        .actions { display: flex; gap: 5px; }
+    </style>
+</head>
+<body>
+    <h1>Catálogo de Productos</h1>
+    
+    <div class="filter-bar">
+        <h3>Filtrar por Categoría y Precio Mínimo</h3>
+        <form onsubmit="event.preventDefault(); window.location.href='/productos/categoria/' + document.getElementById('catId').value + '/precio-mayor?minimo=' + document.getElementById('minPrice').value;">
+            <select id="catId" required>
+                <option value="" disabled selected>Seleccione Categoría</option>
+                <option th:each="cat : ${categorias}" th:value="${cat.id}" th:text="${cat.nombre}"></option>
+            </select>
+            <input type="number" id="minPrice" placeholder="Precio mínimo" step="0.01" required>
+            <button type="submit" class="btn btn-primary">Filtrar</button>
+        </form>
+    </div>
+
+    <a th:href="@{/productos/nuevo}" class="btn btn-primary">Nuevo Producto</a>
+    <a th:href="@{/categorias}" class="btn btn-primary" style="margin-left: 10px;">Ver Categorías</a>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Precio</th>
+                <th>Stock</th>
+                <th>Categoría</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="prod : ${productos}">
+                <td th:text="${prod.id}">1</td>
+                <td th:text="${prod.nombre}">Nombre</td>
+                <td th:text="${prod.precio}">Precio</td>
+                <td th:text="${prod.stock}">Stock</td>
+                <td th:text="${prod.categoria.nombre}">Categoría</td>
+                <td class="actions">
+                    <a th:href="@{/productos/editar/{id}(id=${prod.id})}" class="btn btn-warning">Editar</a>
+                    <form th:action="@{/productos/eliminar/{id}(id=${prod.id})}" method="post" style="display:inline;">
+                        <button type="submit" class="btn btn-danger" onclick="return confirm('¿Eliminar producto?');">Eliminar</button>
+                    </form>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

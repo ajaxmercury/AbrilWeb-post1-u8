@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Productos Filtrados</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        table { border-collapse: collapse; width: 100%; margin-top: 20px; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+        .btn { padding: 8px 15px; text-decoration: none; border-radius: 4px; color: white; display: inline-block; border: none; cursor: pointer; }
+        .btn-primary { background-color: #007bff; }
+    </style>
+</head>
+<body>
+    <h1>Productos Filtrados</h1>
+    <p>Categoría ID: <span th:text="${categoriaId}"></span>, Precio Mayor A: <span th:text="${minimo}"></span></p>
+
+    <a th:href="@{/productos}" class="btn btn-primary">Volver a Productos</a>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Precio</th>
+                <th>Stock</th>
+                <th>Categoría</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="prod : ${productos}">
+                <td th:text="${prod.id}">1</td>
+                <td th:text="${prod.nombre}">Nombre</td>
+                <td th:text="${prod.precio}">Precio</td>
+                <td th:text="${prod.stock}">Stock</td>
+                <td th:text="${prod.categoria.nombre}">Categoría</td>
+            </tr>
+            <tr th:if="${#lists.isEmpty(productos)}">
+                <td colspan="5">No se encontraron productos.</td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
