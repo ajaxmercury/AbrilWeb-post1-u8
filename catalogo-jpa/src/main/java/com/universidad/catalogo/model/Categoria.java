@@ -57,4 +57,21 @@ public class Categoria {
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
+
+    @jakarta.persistence.OneToMany(mappedBy = "categoria", fetch = jakarta.persistence.FetchType.LAZY)
+    private java.util.List<Producto> productos = new java.util.ArrayList<>();
+
+    public java.util.List<Producto> getProductos() {
+        return productos;
+    }
+
+    public void agregarProducto(Producto producto) {
+        productos.add(producto);
+        producto.setCategoria(this);
+    }
+
+    public void quitarProducto(Producto producto) {
+        productos.remove(producto);
+        producto.setCategoria(null);
+    }
 }
